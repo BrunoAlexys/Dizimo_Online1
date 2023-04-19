@@ -1,14 +1,29 @@
 package br.com.unifacol.dizimo.model.util;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 public class JPAUtil {
-    private static final EntityManagerFactory FACTORY = Persistence
-            .createEntityManagerFactory("dizimo_online");
 
-    public static EntityManager getManager (){
-        return FACTORY.createEntityManager();
+    private static final EntityManagerFactory emf;
+
+    static {
+        try {
+            emf = Persistence.createEntityManagerFactory("dizimo_online");
+        } catch (Throwable ex) {
+            System.err.println("Erro ao inicializar EntityManagerFactory: " + ex);
+            throw new ExceptionInInitializerError(ex);
+        }
     }
+
+    public static EntityManager getEntityManager() {
+        return emf.createEntityManager();
+    }
+
+    public static void closeEntityManagerFactory() {
+        emf.close();
+    }
+
 }
+

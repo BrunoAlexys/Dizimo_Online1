@@ -1,8 +1,11 @@
 package br.com.unifacol.dizimo.model.entidades;
 
 import br.com.unifacol.dizimo.model.enums.Sexo;
-import jakarta.persistence.*;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import java.time.LocalDate;
 
 @Entity

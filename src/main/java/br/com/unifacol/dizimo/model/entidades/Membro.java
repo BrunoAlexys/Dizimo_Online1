@@ -1,33 +1,35 @@
 package br.com.unifacol.dizimo.model.entidades;
 
+import br.com.unifacol.dizimo.model.enums.Sexo;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+
 @Entity
-@Table(name = "membro")
-public class Membro {
+@Table(name = "membros")
+public class Membro{
+
+    private String nome;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String cpf;
+    private Integer idade;
+    private LocalDate dataDeNascimento;
+    private Sexo sexo;
     private Integer senha;
     @OneToOne
-    private DadosPessoais dadosPessoais;
+    private Endereco endereco;
 
-
-    public Membro(Long id,Integer senha, DadosPessoais dadosPessoais) {
-        this.id = id;
+    public Membro(String nome, String cpf, Integer idade, LocalDate dataDeNascimento, Sexo sexo, Integer senha, Endereco endereco) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.idade = idade;
+        this.dataDeNascimento = dataDeNascimento;
+        this.sexo = sexo;
         this.senha = senha;
-        this.dadosPessoais = dadosPessoais;
+        this.endereco = endereco;
     }
 
     public Membro() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Integer getSenha() {
@@ -38,17 +40,51 @@ public class Membro {
         this.senha = senha;
     }
 
-    public DadosPessoais getDadosPessoais() {
-        return dadosPessoais;
+    public String getNome() {
+        return nome;
     }
 
-    public void setDadosPessoais(DadosPessoais dadosPessoais) {
-        this.dadosPessoais = dadosPessoais;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
+    public String getCpf() {
+        return cpf;
+    }
 
-    @Override
-    public String toString() {
-        return "\nID: " + this.getId() + "\nSenha: " + this.getSenha() +  this.getDadosPessoais().toString();
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public Integer getIdade() {
+        return idade;
+    }
+
+    public void setIdade(Integer idade) {
+        this.idade = idade;
+    }
+
+    public LocalDate getDataDeNascimento() {
+        return dataDeNascimento;
+    }
+
+    public void setDataDeNascimento(LocalDate dataDeNascimento) {
+        this.dataDeNascimento = dataDeNascimento;
+    }
+
+    public Sexo getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(Sexo sexo) {
+        this.sexo = sexo;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
 }

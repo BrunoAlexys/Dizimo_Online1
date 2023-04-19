@@ -6,7 +6,7 @@ import jakarta.persistence.Persistence;
 
 public class JPAUtil {
     private static final EntityManagerFactory FACTORY = Persistence
-            .createEntityManagerFactory("dizimo");
+            .createEntityManagerFactory("dizimo_online");
 
     public static EntityManager getManager (){
         return FACTORY.createEntityManager();

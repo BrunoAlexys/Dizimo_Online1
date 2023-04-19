@@ -39,7 +39,7 @@ public enum Estado {
         return nomeCompleto;
     }
 
-    public static Estado fromSigla(String sigla) {
+    public static Estado Sigla(String sigla) {
         for (Estado estado : values()) {
             if (estado.name().equalsIgnoreCase(sigla)) {
                 return estado;

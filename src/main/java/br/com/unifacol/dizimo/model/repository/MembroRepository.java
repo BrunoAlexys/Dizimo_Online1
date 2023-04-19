@@ -16,7 +16,18 @@ public class MembroRepository implements IRepositoryMembro {
 
     @Override
     public void cadastrarMembro(Membro membro) throws SQLException {
-        this.manager.persist(membro);
+
+        try{
+            manager.getTransaction().begin();
+            manager.persist(membro);
+            manager.getTransaction().commit();
+        }catch (Exception e){
+            if (manager.getTransaction().isActive()){
+                manager.getTransaction().rollback();
+                System.out.println(e.getStackTrace());
+            }
+            throw new RuntimeException("Erro ao cadastrar: " + e);
+        }
     }
 
     @Override
@@ -25,8 +36,8 @@ public class MembroRepository implements IRepositoryMembro {
     }
 
     @Override
-    public void excluirMembro(Long id) throws SQLException {
-        Membro membro = manager.find(Membro.class, id);
+    public void excluirMembro(String cpf) throws SQLException {
+        Membro membro = manager.find(Membro.class, cpf);
         if (membro != null) {
             manager.remove(membro);
             }
@@ -46,7 +57,7 @@ public class MembroRepository implements IRepositoryMembro {
 
         @Override
         public List<Membro> listarPorCPF (String cpf) throws SQLException {
-            String jqpl = "SELECT m FROM Membro m WHERE m.dadosPessoais.cpf = :cpf";
+            String jqpl = "SELECT m FROM Membro m WHERE m.cpf = :cpf";
             return (List<Membro>) manager.createQuery(jqpl,Membro.class).setParameter("cpf",cpf);
         }
     }
